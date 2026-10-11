@@ -245,14 +245,8 @@ header.bar{z-index:50}
 
 /* Video */
 .video-card{position:relative;max-width:1100px;margin:0 auto;aspect-ratio:16/9;background:var(--ink);border:4px solid var(--card-edge);border-radius:32px;overflow:hidden;box-shadow:0 10px 0 var(--shadow)}
-.video-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#0a1a35;display:block}
-.video-empty{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:24px;
-  background:linear-gradient(135deg,#1d2a5c,#10305a);color:#eaf2ff}
-.video-empty .em{font-size:64px}
-.video-empty strong{font:700 34px var(--font-display)}
-.video-empty small{font-size:17px;opacity:.85;max-width:30em}
-.video-card.missing video{visibility:hidden}
-.video-card.missing .video-empty{display:flex}
+.video-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#0a1a35}
+.video-link{text-align:center;margin-top:30px}
 
 /* Role */
 .role{display:grid;gap:26px;grid-template-columns:repeat(3,1fr)}
@@ -447,15 +441,10 @@ footer{max-width:1160px;margin:0 auto;padding:0 20px 40px;color:var(--ink-soft);
       <p>See how we invest in games, improve them and support the people behind them.</p>
     </div>
     <div class="video-card" id="video-card">
-      <video id="studio-video" controls playsinline preload="metadata">
-        <source src="video.mp4" type="video/mp4">
-      </video>
-      <div class="video-empty" id="video-empty">
-        <span class="em">🎬</span>
-        <strong>Video coming soon</strong>
-        <small>Add a file named <b>video.mp4</b> next to <b>index.html</b> in your GitHub folder.</small>
-      </div>
+      <iframe src="https://www.youtube-nocookie.com/embed/mLxfzHxsYLI?rel=0&modestbranding=1" title="Flyes Games video"
+        loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
     </div>
+    <p class="video-link"><a class="btn pink" href="https://youtu.be/mLxfzHxsYLI" target="_blank" rel="noopener">▶ Watch on YouTube</a></p>
   </section>
 
   <section id="contact" class="contact">
@@ -792,19 +781,6 @@ footer{max-width:1160px;margin:0 auto;padding:0 20px 40px;color:var(--ink-soft);
     }
   })();
 
-  // ================= Video =================
-  (function(){
-    var v = document.getElementById("studio-video"), card = document.getElementById("video-card");
-    var src = v.querySelector("source");
-    function missing(){ card.classList.add("missing"); }
-    src.addEventListener("error", missing);
-    v.addEventListener("error", missing);
-    // lower the site's background wind while the video plays
-    function amb(g){ if (Snd.ambGain && Snd.ctx) Snd.ambGain.gain.setTargetAtTime(g, Snd.ctx.currentTime, .15); }
-    v.addEventListener("play", function(){ amb(0); });
-    v.addEventListener("pause", function(){ amb(.035); });
-    v.addEventListener("ended", function(){ amb(.035); });
-  })();
 
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
